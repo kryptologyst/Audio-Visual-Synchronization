@@ -1,0 +1,6 @@
+# @package data
+_target_: src.utils.core.AudioVisualSyncDataset
+
+# Data configuration
+data_dir: "data/processed"
+split: "train"

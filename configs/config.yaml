@@ -1,0 +1,68 @@
+# @package _global_
+defaults:
+  - _self_
+  - override /model: cross_correlation
+  - override /data: synthetic
+  - override /train: default
+
+# Project configuration
+project_name: "audio_visual_sync"
+version: "1.0.0"
+description: "Audio-Visual Synchronization using Cross-Correlation and Neural Networks"
+
+# Paths
+paths:
+  data_dir: "data"
+  raw_data_dir: "data/raw"
+  processed_data_dir: "data/processed"
+  checkpoint_dir: "checkpoints"
+  log_dir: "logs"
+  assets_dir: "assets"
+
+# Device configuration
+device: "auto"  # auto, cuda, mps, cpu
+seed: 42
+
+# Audio configuration
+audio:
+  sample_rate: 16000
+  n_fft: 2048
+  hop_length: 512
+  n_mels: 128
+  n_mfcc: 13
+  preemphasis: 0.97
+
+# Video configuration
+video:
+  target_fps: 25
+  frame_width: 224
+  frame_height: 224
+  mouth_region_size: 64
+
+# Model configuration
+model:
+  name: "cross_correlation"
+  audio_feature_dim: 13
+  visual_feature_dim: 4096
+  hidden_dim: 512
+  dropout: 0.1
+
+# Training configuration
+train:
+  batch_size: 16
+  learning_rate: 1e-3
+  num_epochs: 100
+  patience: 10
+  gradient_clip_val: 1.0
+
+# Evaluation configuration
+eval:
+  metrics: ["sync_accuracy", "lag_error", "correlation_score"]
+  tolerance_frames: 2
+
+# Logging
+logging:
+  level: "INFO"
+  log_every_n_steps: 10
+  save_top_k: 3
+  monitor: "val_loss"
